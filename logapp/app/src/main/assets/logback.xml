@@ -1,5 +1,5 @@
 <configuration>
-    <property name="LOG_DIR" value="/data/data/com.example/files" />
+    <property name="LOG_DIR" value="/sdcard/logback" />
 
     <appender name="logcat" class="ch.qos.logback.classic.android.LogcatAppender">
         <tagEncoder>
@@ -11,8 +11,28 @@
     </appender>
 
 
+    <appender name="stash" class="net.logstash.logback.appender.LogstashUdpSocketAppender">
+        <host>137.175.2.201</host>
+        <!-- port is optional (default value shown) -->
+        <port>3050</port>
+        <!-- layout is required -->
+        <layout class="net.logstash.logback.layout.LogstashLayout"/>
+    </appender>
 
-    <root level="DEBUG">
+
+    <appender name="stashtcp" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>137.175.2.201:3050</destination>
+
+        <!-- encoder is required -->
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+    </appender>
+
+
+
+
+    <root level="all">
+        <appender-ref ref="stashtcp" />
         <appender-ref ref="logcat" />
+        <appender-ref ref="stash" />
     </root>
 </configuration>
