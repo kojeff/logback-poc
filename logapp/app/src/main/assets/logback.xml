@@ -12,20 +12,14 @@
 
 
     <appender name="stash" class="net.logstash.logback.appender.LogstashUdpSocketAppender">
-        <host>137.175.2.201</host>
+        <host>127.0.0.1</host>
         <!-- port is optional (default value shown) -->
-        <port>3050</port>
+        <port>4001</port>
         <!-- layout is required -->
         <layout class="net.logstash.logback.layout.LogstashLayout"/>
     </appender>
 
 
-    <appender name="stashtcp" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>137.175.2.201:3050</destination>
-
-        <!-- encoder is required -->
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
-    </appender>
 
 
 

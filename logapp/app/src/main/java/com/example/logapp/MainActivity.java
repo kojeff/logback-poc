@@ -17,6 +17,8 @@ import com.example.logapp.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        LogbackListener server = new LogbackListener();
+        server.runUdpServer();
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -60,7 +64,14 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         Logger log = LoggerFactory.getLogger(MainActivity.class);
-        log.info("hello world");
+        JSONObject json = new JSONObject();
+        try {
+            json.put("source", "AppB");
+            json.put("message", "hello from App B!");
+            log.info(json.toString());
+        } catch (Exception e) {
+
+        }
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
